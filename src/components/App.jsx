@@ -51,13 +51,7 @@ export class App extends React.Component {
   };
 
   handleFeedback = event => {
-    if (event === 'Good') {
-      this.setState({ good: this.state.good + 1 });
-    } else if (event === 'Neutral') {
-      this.setState({ neutral: this.state.neutral + 1 });
-    } else if (event === 'Bad') {
-      this.setState({ bad: this.state.bad + 1 });
-    }
+    this.setState(prevstate => ({ [event]: prevstate[event] + 1 }));
   };
 
   render() {
@@ -76,7 +70,7 @@ export class App extends React.Component {
       >
         <Section title="Please leave feedback">
           <FeedbackOptions
-            options={['Good', 'Neutral', 'Bad']}
+            options={Object.keys(this.state)}
             onLeaveFeedback={this.handleFeedback}
           />
         </Section>
